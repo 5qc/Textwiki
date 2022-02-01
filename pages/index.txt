@@ -1,0 +1,1 @@
+Welcome to your brand new **Textwiki!** To learn more about Textwiki, head to [wiki:help](wiki:help)!
