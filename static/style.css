@@ -1,0 +1,47 @@
+body {
+    font-family: monospace;
+    font-size: 20px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+img {
+    float: left;
+    margin: 0px 5px 5px 0px;
+}
+img.right {
+    float: right;
+    margin: 0px 5px 5px 5px;
+}
+
+del {
+    background: #f335;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+h1 {
+    font-size: 250%;
+}
+h2 {
+    font-size: 225%;
+}
+h3 {
+    font-size: 200%;
+}
+h4 {
+    font-size: 175%;
+}
+h5 {
+    font-size: 150%;
+}
+h6 {
+    font-size: 125%;
+}
+
+h1 ~ br, h2 ~ br, h3 ~ br, h4 ~ br, h5 ~ br, h6 ~ br {
+    display: none;
+}
