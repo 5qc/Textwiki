@@ -26,6 +26,13 @@ textarea#content {
     display: block;
 }
 
+code {
+    background: rgba(0, 0, 0, 0.5);
+    font-size: 70%;
+    padding: 3px;
+    border-radius: 5px;
+}
+
 del {
     background: #f335;
 }
@@ -34,26 +41,32 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0;
 }
 h1 {
-    font-size: 250%;
+    font-size: 220%;
 }
 h2 {
-    font-size: 225%;
-}
-h3 {
     font-size: 200%;
 }
+h3 {
+    font-size: 180%;
+}
 h4 {
-    font-size: 175%;
+    font-size: 160%;
 }
 h5 {
-    font-size: 150%;
+    font-size: 140%;
 }
 h6 {
-    font-size: 125%;
+    font-size: 120%;
 }
 
 h1 ~ br, h2 ~ br, h3 ~ br, h4 ~ br, h5 ~ br, h6 ~ br {
     display: none;
+}
+
+.pageTitle {
+    font-size: 240%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    margin-bottom: 7px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -67,5 +80,13 @@ h1 ~ br, h2 ~ br, h3 ~ br, h4 ~ br, h5 ~ br, h6 ~ br {
     }
     a:visited {
         color: #FFDFF1;
+    }
+
+    code {
+        background: rgba(255, 255, 255, 0.25);
+    }
+
+    .pageTitle {
+        border-bottom-color: rgba(255, 255, 255, 0.5);
     }
 }
