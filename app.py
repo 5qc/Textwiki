@@ -20,6 +20,28 @@ def getPage(page):
                 content = f.read()
                 content = content.replace("\n", "<br />")
 
+                # Escpaing Characters
+                escAsterik = re.compile(r"\\\*")
+                escUnderline = re.compile(r"\\\_")
+                escHyphen    = re.compile(r"\\\-")
+                escHashtag   = re.compile(r"\\\#")
+                escOpenBracket = re.compile(r"\\\[")
+                escCloseBracket = re.compile(r"\\\]")
+                escOpenBrace    = re.compile(r"\\\{")
+                escCloseBrace   = re.compile(r"\\\}")
+                escBacktick     = re.compile(r"\\\`")
+
+                content = re.sub(escAsterik, "‍*", content)
+                content = re.sub(escUnderline, "‍_", content)
+                content = re.sub(escHyphen, "‍-", content)
+                content = re.sub(escHashtag, "‍#", content)
+                content = re.sub(escOpenBracket, "‍[", content)
+                content = re.sub(escCloseBracket, "‍]", content)
+                content = re.sub(escOpenBrace, "‍{", content)
+                content = re.sub(escCloseBrace, "‍}", content)
+                content = re.sub(escBacktick, "‍`", content)
+
+                # Main Syntax
                 italic = re.compile(r"\*(.*?)\*")
                 bold   = re.compile(r"\*\*(.*?)\*\*")
                 underline = re.compile(r"\_(.*?)\_")
@@ -32,7 +54,9 @@ def getPage(page):
                 heading4 = re.compile(r"####(.*?)####")
                 heading5 = re.compile(r"#####(.*?)#####")
                 heading6 = re.compile(r"######(.*?)######")
+                code = re.compile(r"`(.*?)`")
 
+                content = re.sub(code, r"<code>\1</code>", content)
                 content = re.sub(bold, r"<b>\1</b>", content)
                 content = re.sub(italic, r"<i>\1</i>", content)
                 content = re.sub(underline, r"<u>\1</u>", content)
@@ -69,18 +93,40 @@ def page2(dir, page):
                 content = f.read()
                 content = content.replace("\n", "<br />")
 
-                italic = re.compile(r"\*(.*?)\*")
-                bold   = re.compile(r"\*\*(.*?)\*\*")
-                underline = re.compile(r"\_(.*?)\_")
-                strike = re.compile(r"\-(.*?)\-")
-                sub = re.compile(r"\^(.*?)\^")
-                sup = re.compile(r"\^\^(.*?)\^\^")
-                heading1 = re.compile(r"#(.*?)#")
-                heading2 = re.compile(r"##(.*?)##")
-                heading3 = re.compile(r"###(.*?)###")
-                heading4 = re.compile(r"####(.*?)####")
-                heading5 = re.compile(r"#####(.*?)#####")
-                heading6 = re.compile(r"######(.*?)######")
+                # Escpaing Characters
+                escAsterik = re.compile(r"\\\*")
+                escUnderline = re.compile(r"\\\_")
+                escHyphen    = re.compile(r"\\\-")
+                escHashtag   = re.compile(r"\\\#")
+                escOpenBracket = re.compile(r"\\\[")
+                escCloseBracket = re.compile(r"\\\]")
+                escOpenBrace    = re.compile(r"\\\{")
+                escCloseBrace   = re.compile(r"\\\}")
+                escBacktick     = re.compile(r"\\\`")
+
+                content = re.sub(escAsterik, "‍*", content)
+                content = re.sub(escUnderline, "‍_", content)
+                content = re.sub(escHyphen, "‍-", content)
+                content = re.sub(escHashtag, "‍#", content)
+                content = re.sub(escOpenBracket, "‍[", content)
+                content = re.sub(escCloseBracket, "‍]", content)
+                content = re.sub(escOpenBrace, "‍{", content)
+                content = re.sub(escCloseBrace, "‍}", content)
+                content = re.sub(escBacktick, "‍`", content)
+
+                # Main Syntax
+                italic    = re.compile(r"(?<!‍)\*(.*?)\*(?!‍)")
+                bold      = re.compile(r"(?<!‍)\*\*(.*?)\*\*(?!‍)")
+                underline = re.compile(r"(?<!‍)\_(.*?)\_(?!‍)")
+                strike    = re.compile(r"(?<!‍)\-(.*?)\-(?!‍)")
+                sub       = re.compile(r"(?<!‍)\^(.*?)\^(?!‍)")
+                sup       = re.compile(r"(?<!‍)\^\^(.*?)\^\^(?!‍)")
+                heading1  = re.compile(r"(?<!‍)#(.*?)#(?!‍)")
+                heading2  = re.compile(r"(?<!‍)##(.*?)##(?!‍)")
+                heading3  = re.compile(r"(?<!‍)###(.*?)###(?!‍)")
+                heading4  = re.compile(r"(?<!‍)####(.*?)####(?!‍)")
+                heading5  = re.compile(r"(?<!‍)#####(.*?)#####(?!‍)")
+                heading6  = re.compile(r"(?<!‍)######(.*?)######(?!‍)")
 
                 content = re.sub(bold, r"<b>\1</b>", content)
                 content = re.sub(italic, r"<i>\1</i>", content)
@@ -96,17 +142,20 @@ def page2(dir, page):
                 content = re.sub(heading1, r"<h1>\1</h1>", content)
 
                 # Links
-                link = re.compile(r"\[(.+?)\]\((.*?)\)")
+                link = re.compile(r"(?<!‍)\[(.+?)\]\((.*?)\)(?!‍)")
                 content = re.sub(link, r'<a href="\2">\1</a>', content)
 
                 # Images
-                image = re.compile(r"\{(.*?)\}")
-                image2 = re.compile(r"\{(.*?)\}(.*?)(?= )")
-                image3 = re.compile(r"\{(.*?)\}(.*?),(.*?)(?= )")
+                image  = re.compile(r"(?<!‍)\{(.*?)\}(?!‍)")
+                image2 = re.compile(r"(?<!‍)\{(.*?)\}(.*?)(?= )(?!‍)")
+                image3 = re.compile(r"(?<!‍)\{(.*?)\}(.*?),(.*?)(?= )(?!‍)")
 
                 content = re.sub(image3, r'<img src="/static/img/\1" class="\2" width="\3px" alt="\1" />', content)
                 content = re.sub(image2, r'<img src="/static/img/\1" class="\2" alt="\1" />', content)
                 content = re.sub(image, r'<img src="/static/img/\1" alt="\1" />', content)
+
+                code = re.compile(r"(?<!‍)`(.*?)`(?!‍)")
+                content = re.sub(code, r"<code>\1</code>", content)
 
             return render_template("page.html", title=f"{dir}:{page}", content=content)
     
